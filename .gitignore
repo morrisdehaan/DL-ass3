@@ -1,0 +1,6 @@
+data/*
+part1/*
+part2/__pycache__
+part2/adversarial_examples
+part2/cifar10_models/__pycache__
+part2/data
