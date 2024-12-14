@@ -41,7 +41,7 @@ def load_cifar10(batch_size=4, valid_ratio=0.75, test_bs_1 = True, augmentations
 
     trainloader = torch.utils.data.DataLoader(trainset, batch_size=batch_size, shuffle=True, num_workers=2)
     validloader = torch.utils.data.DataLoader(validset, batch_size=batch_size, shuffle=False, num_workers=2)
-    testloader = torch.utils.data.DataLoader([testset[i] for i in range(100)], batch_size=1 if test_bs_1 else batch_size, shuffle=False, num_workers=2) # TODO: select all
+    testloader = torch.utils.data.DataLoader(testset, batch_size=1 if test_bs_1 else batch_size, shuffle=False, num_workers=2)
 
     classes = trainset.classes
     N_tr = len(trainset)
