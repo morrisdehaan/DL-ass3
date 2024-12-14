@@ -79,6 +79,7 @@ def pgd_attack(model, data: torch.Tensor, target, criterion, args):
     # Hint: it can be useful to use toch.nograd()
 
     x = data
+    x.requires_grad = True
     for _ in range(num_iter):
         outputs = model(x)      
 
