@@ -48,14 +48,15 @@ def fgsm_loss(model, criterion, inputs, labels, defense_args, return_preds = Tru
     original_outputs = model(inputs)
     original_loss = criterion(original_outputs, labels)
 
-    attack_inputs = fgsm_attack(inputs, inputs.grad, epsilon)
-    attack_outputs = model(attack_inputs)
-    attack_loss = criterion(attack_outputs, labels)
+    model.zero_grad()
+    original_loss.backward(retain_graph=True)
+
+    with torch.no_grad():
+        attack_inputs = fgsm_attack(inputs, inputs.grad, epsilon)
+        attack_outputs = model(attack_inputs)
+        attack_loss = criterion(attack_outputs, labels)
 
     loss = alpha * original_loss + (1 - alpha) * attack_loss
-
-    model.zero_grad()
-    loss.backward()
 
     if return_preds:
         _, preds = torch.max(original_outputs, 1)
